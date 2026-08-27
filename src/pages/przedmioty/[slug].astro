@@ -1,0 +1,30 @@
+---
+import Campus from "../../layouts/Campus.astro";
+import { getCollection } from "astro:content";
+import site, { coverFor, subjectSlug } from "../../site.config";
+export async function getStaticPaths() {
+  const posts = await getCollection("lekcje");
+  const cats = [...new Set(posts.map((p) => p.data.category).filter(Boolean))] as string[];
+  return cats.map((name) => ({
+    params: { slug: subjectSlug(name) },
+    props: { name, posts: posts.filter((p) => p.data.category === name) },
+  }));
+}
+const { name, posts } = Astro.props;
+const sorted = [...posts].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const meta = site.subjects.find((r) => r.name === name);
+---
+<Campus title={name} description={meta?.blurb || name} image={coverFor(name)}>
+  <main class="mx-auto max-w-3xl px-4 py-12">
+    <p class="text-xs font-bold uppercase tracking-wider text-campus"><a href="/przedmioty/">Przedmioty</a> / {name}</p>
+    <h1 class="mt-2 font-display text-4xl font-bold">{name}</h1>
+    <p class="mt-3 text-lg text-slateink/75">{meta?.blurb}</p>
+    <ul class="mt-10 space-y-4">
+      {sorted.map((post) => (
+        <li class="rounded-2xl bg-white p-4 ring-1 ring-campus/10">
+          <a href={`/lekcje/${post.slug}/`} class="font-display text-xl font-bold hover:text-campus">{post.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Campus>

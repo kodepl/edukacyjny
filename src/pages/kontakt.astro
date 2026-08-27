@@ -1,0 +1,16 @@
+---
+import Campus from "../layouts/Campus.astro";
+import site from "../site.config";
+---
+<Campus title="Kontakt" description={`Napisz do ${site.name}.`}>
+  <section class="mx-auto max-w-xl px-4 py-12">
+    <h1 class="font-display text-4xl font-bold">Kontakt</h1>
+    <p class="mt-4">{site.address}</p>
+    <p class="mt-1"><a class="font-bold text-campus underline" href={`mailto:${site.email}`}>{site.email}</a></p>
+    <form class="mt-8 space-y-3" action={"mailto:" + site.email} method="get" enctype="text/plain">
+      <input name="subject" required placeholder="Temat" class="w-full rounded-2xl border border-campus/20 bg-white px-4 py-3" />
+      <textarea name="body" required rows="5" placeholder="Wiadomość" class="w-full rounded-2xl border border-campus/20 bg-white px-4 py-3"></textarea>
+      <button class="rounded-full bg-campus px-5 py-2.5 text-sm font-bold text-white">Wyślij</button>
+    </form>
+  </section>
+</Campus>

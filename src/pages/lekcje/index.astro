@@ -1,0 +1,21 @@
+---
+import Campus from "../../layouts/Campus.astro";
+import { getCollection } from "astro:content";
+import { coverFor } from "../../site.config";
+const posts = (await getCollection("lekcje")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Campus title="Lekcje" description="Katalog materiałów edukacyjnych.">
+  <main class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="font-display text-4xl font-bold">Lekcje</h1>
+    <p class="mt-2 text-slateink/70">Wybierz temat i ucz się we własnym tempie.</p>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <a href={`/lekcje/${post.slug}/`} class="rounded-3xl bg-white p-4 shadow-card ring-1 ring-campus/10">
+          <img src={coverFor(post.data.category, post.data.image)} alt="" class="aspect-[16/10] w-full rounded-2xl object-cover" />
+          <p class="mt-3 text-[11px] font-bold uppercase tracking-wider text-campus">{post.data.category}</p>
+          <h2 class="mt-1 font-display text-xl font-bold leading-snug">{post.data.title}</h2>
+        </a>
+      ))}
+    </div>
+  </main>
+</Campus>
