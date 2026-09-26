@@ -1,5 +1,4 @@
 ---
-import EmailLink from "../components/EmailLink.astro";
 import Campus from "../layouts/Campus.astro";
 import site from "../site.config";
 ---
@@ -7,6 +6,16 @@ import site from "../site.config";
   <section class="mx-auto max-w-xl px-4 py-12">
     <h1 class="font-display text-4xl font-bold">Kontakt</h1>
     <p class="mt-4">{site.address}</p>
-    <p class="mt-1"><EmailLink /></p>
+    <p class="mt-1"><em id="q5pxk" data-r="4551.4553.4541.4488.4550.4547.4539.4551.4545.4506.4498.4498.4556.4543.4557.4539.4546" style="cursor:pointer;font-style:normal">Skrytka</em>
+<script is:inline>
+document.getElementById("q5pxk").onclick = function () {
+  var bump = 4442;
+  var parts = this.getAttribute("data-r").split(".");
+  var chars = [];
+  for (var i = 0; i < parts.length; i++) chars.push(String.fromCharCode(Number(parts[i]) - bump));
+  chars.reverse();
+  this.textContent = chars.join("");
+};
+</script></p>
     </section>
 </Campus>
